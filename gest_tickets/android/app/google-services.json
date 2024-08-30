@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "254829675866",
+    "project_id": "gestticket-b0406",
+    "storage_bucket": "gestticket-b0406.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254829675866:android:229e59f7c267c2d0185f63",
+        "android_client_info": {
+          "package_name": "com.example.gest_ticket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0PPsWyicXLB_DFpDuhqb-O4LLHSo4viI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
