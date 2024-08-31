@@ -6,8 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Auth extends StatefulWidget {
   // const Auth({super.key});
 
-  
-  
   @override
   State<Auth> createState() => _AuthState();
 }
@@ -18,94 +16,104 @@ class _AuthState extends State<Auth> {
     final EmailContro = TextEditingController();
     final PassContro = TextEditingController();
 
-
-
-
     return Scaffold(
       backgroundColor: sombre,
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            width: 400,
-            child: Column(
-              children: [
+      body: ListView(
+        children: [
+          Center(
+            child: Container(
+              width: 400,
+              child: Column(
+                children: [
+                  BackBTN(() {
+                    print('object');
+                  }),
 
-                Container(
-                    width: 300,
-                    height: 280,
-                    child: Image.asset(
-                      'lib/images/Auth.png',
-                      fit: BoxFit.contain,
-                    )),
+                  // Container(
+                  //   width: double.infinity,
+                  //   padding: EdgeInsets.only(top: 10),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Center(
+                  //         // decoration: BoxDecoration(
+                  //         //   color: vert,
+                  //         //   shape: BoxShape.circle
+                  //         // ),
 
-                // SizedBox(height: 5),
+                  //         child: ElevatedButton.icon(
+                  //             iconAlignment: IconAlignment.start,
+                  //             style: ButtonStyle(
+                  //               backgroundColor: WidgetStatePropertyAll(sombre),
+                  //               padding: WidgetStatePropertyAll(
+                  //                   EdgeInsets.symmetric(
+                  //                       horizontal: 10, vertical: 10)),
+                  //             ),
+                  //             onPressed: () => print("salut"),
+                  //             label: Icon(
+                  //               Icons.arrow_back_ios,
+                  //               color: Colors.white,
+                  //               size: 30,
+                  //             )),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  Text('.'),
 
-                Text(
-                  'Connexion',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 44,
-                      fontWeight: FontWeight.bold),
-                ),
+                  Container(
+                      width: 300,
+                      height: 280,
+                      child: Image.asset(
+                        'lib/images/Auth.png',
+                        fit: BoxFit.contain,
+                      )),
 
-                SizedBox(height: 10),
+                  // SizedBox(height: 5),
 
-                // Moninput(
-                //   Colors.white,
-                //   'email',
-                //   Icon(
-                //     Icons.email,
-                //     color: vert,
-                //     size: 30,
-                //   ),
-                // ),
-                // Moninput(
-                //     Colors.white,
-                //     'passwore',
-                //     Icon(
-                //       Icons.remove_red_eye,
-                //       color: vert,
-                //       size: 30,
-                //     ),
-                    MonInput(
-                        color:Colors.white,
-                        text:'password',
-                        icon:Icon(
-                          Icons.remove_red_eye,
-                          color: vert,
-                          size: 30,
-                        ),
-                        controller: PassContro,
-                        obscruretext: true,
-                        
+                  Text(
+                    'Connexion',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 44,
+                        fontWeight: FontWeight.bold),
+                  ),
+
+                  MonInput(
+                    color: Colors.white,
+                    text: 'Email',
+                    icon: Icon(
+                      Icons.email,
+                      color: vert,
+                      size: 30,
                     ),
-                SizedBox(
-                  height: 15,
-                ),
-                ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(vert),
-                      padding: WidgetStatePropertyAll(
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20)),
+                    controller: EmailContro,
+                    obscruretext: false,
+                  ),
+                  MonInput(
+                    color: Colors.white,
+                    text: 'password',
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: vert,
+                      size: 30,
                     ),
-                    onPressed: () => {print("object")},
-                    child: Text(
-                      "Se connecter",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        // fontWeight: FontWeight.bold
-                      ),
-                    ))
-              ],
+                    controller: PassContro,
+                    obscruretext: true,
+                  ),
+
+                  SizedBox(
+                    height: 15,
+                  ),
+                  MonButton('Se connecter', 30, 20, () {
+                    print("object");
+                  })
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
-
-
-
-
