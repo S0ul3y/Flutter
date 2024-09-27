@@ -1,0 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class Utilisateur {
+  final String userId;
+  final String nomUser;
+  final String prenomUser;
+  final String emailUser;
+  final String roleUser;
+
+  Utilisateur({
+    required this.userId,
+    required this.nomUser,
+    required this.prenomUser,
+    required this.emailUser,
+    required this.roleUser,
+  });
+}
+
+
+
+
+
+
+Future<Utilisateur?> fetchUserData() async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
+  if (currentUser != null) {
+    try {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(currentUser.uid)
+          .get();
+
+      if (userDoc.exists) {
+        Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;
+
+        Utilisateur utilisateur = Utilisateur(
+          userId: currentUser.uid,
+          nomUser: data['nom'] ?? '',
+          prenomUser: data['prenom'] ?? '',
+          emailUser: data['email'] ?? '',
+          roleUser: data['role'] ?? '',
+        );
+
+        return utilisateur;
+      }
+    } catch (e) {
+      print("Erreur lors de la récupération des données utilisateur : $e");
+    }
+  }
+  return null;
+}

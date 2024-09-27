@@ -8,7 +8,7 @@ const Color sombre = Color(0xFF0A1733);
 const Color trivert = Color(0xFF8CD8C1);
 const Color tribleu = Color(0xFF89BCED);
 const Color tricafe = Color(0xFFE5D7A3);
-const Color ticketColor = Color(0xFFED9D9D9);
+const Color ticketColor = Color(0xffed9d9d9);
 
 Widget topBar(Image image, Icon icon) {
   return Padding(
@@ -22,24 +22,41 @@ Widget topBar(Image image, Icon icon) {
 }
 
 Widget trier(ElevatedButton bloc1, ElevatedButton bloc2, ElevatedButton bloc3) {
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      bloc1,
-      bloc2,
-      bloc3,
-    ],
+  return SizedBox(
+    width: double.infinity,
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: Expanded(flex: 1,  child: bloc1),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: Expanded(flex: 1,  child: bloc2),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: Expanded(flex: 1,  child: bloc3),
+        ),
+        // Expanded(flex: 1, child: bloc2),
+        // Expanded(flex: 1, child: bloc3)
+        // bloc1,
+        // bloc2,
+        // bloc3,
+      ],
+    ),
   );
 }
 
 ElevatedButton TrierButton(
-    String img, String texte, Color color, Function? Onpress()) {
+    String img, String texte, Color color, Function? Function() Onpress) {
   return ElevatedButton(
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(color),
-      padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8)),
+      padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8)),
     ),
     onPressed: () {
       Onpress();
@@ -56,7 +73,7 @@ ElevatedButton TrierButton(
           ),
           Text(
             texte,
-            style: TextStyle(
+            style: const TextStyle(
               color: sombre,
               fontWeight: FontWeight.normal,
               fontSize: 15,
@@ -77,7 +94,7 @@ class MonInput extends StatelessWidget {
   final bool obscruretext;
   // final ElevatedButton? suffix;
 
-  const MonInput({
+  const MonInput({super.key, 
     required this.color,
     required this.text,
     required this.icon,
@@ -85,22 +102,6 @@ class MonInput extends StatelessWidget {
     required this.obscruretext,
     //  this.suffix,
   });
-
-  // hidepass() {
-  //   return ElevatedButton.icon(
-  //     onPressed: () => {
-  //       if (this.obscruretext == false)
-  //         {this.obscruretext == true}
-  //       else
-  //         {this.obscruretext == false}
-  //     },
-  //     label: Icon(
-  //       Icons.remove_red_eye,
-  //       color: vert,
-  //       size: 30,
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +116,9 @@ class MonInput extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(
               25), // Assurez-vous que le radius est cohérent avec le TextField
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: const Color.fromARGB(
+              color: Color.fromARGB(
                   97, 150, 201, 63), // Couleur de l'ombre avec opacité
               spreadRadius: 3, // Rayon de diffusion
               blurRadius: 5, // Rayon de flou
@@ -149,10 +150,10 @@ class MonInput extends StatelessWidget {
 }
 
 ElevatedButton MonButton(
-    String nombtn, double long, double larg, Function? onTap()) {
+   Color couleur, String nombtn, double long, double larg,  Function ?  Function () onTap) {
   return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(vert),
+        backgroundColor: WidgetStatePropertyAll(couleur),
         padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: long, vertical: larg)),
       ),
@@ -160,11 +161,11 @@ ElevatedButton MonButton(
       child: Text(
         nombtn,
         style:
-            TextStyle(color: sombre, fontSize: 15, fontWeight: FontWeight.bold),
+            const TextStyle(color: sombre, fontSize: 15, fontWeight: FontWeight.bold),
       ));
 }
 
-Padding BackBTN(Function? AuClic()) {
+Padding BackBTN(Function? Function() AuClic) {
   return Padding(
     padding: const EdgeInsets.only(top: 20, left: 0),
     child: Row(
@@ -172,11 +173,11 @@ Padding BackBTN(Function? AuClic()) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IconButton(
-            onPressed: () => AuClic,
-            style: ButtonStyle(
+            onPressed: () => AuClic(),
+            style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(vert),
                 shadowColor: WidgetStatePropertyAll(sombre)),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: sombre,
             )),
@@ -186,7 +187,7 @@ Padding BackBTN(Function? AuClic()) {
 }
 
 Padding MonTicket(
-  String Category, String titre, String Date, Function? Btnplus()) {
+  String Category, String titre, String Date, Function? Function() Btnplus) {
   return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -216,7 +217,7 @@ Padding MonTicket(
                         ),
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Expanded(
@@ -230,19 +231,18 @@ Padding MonTicket(
                           backgroundColor: vert,
                           label: Text(
                             Category,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: sombre, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text(
                           titre,
-                          overflow: TextOverflow
-                              .ellipsis, // Coupe le texte et ajoute "..." à la fin
+                          overflow: TextOverflow.ellipsis, // Coupe le texte et ajoute "..." à la fin
                           maxLines: 2,
                         ),
                         Text(
                           Date,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: sombre,
                             fontWeight: FontWeight.bold,
                           ),
@@ -259,11 +259,11 @@ Padding MonTicket(
                     children: [
                       IconButton(
                           onPressed: Btnplus,
-                          style: ButtonStyle(
+                          style: const ButtonStyle(
                               backgroundColor: WidgetStatePropertyAll(vert),
                               shadowColor: WidgetStatePropertyAll(sombre)),
-                          icon: Icon(
-                            Icons.add,
+                          icon: const Icon(
+                            Icons.remove_red_eye_sharp,
                             color: ticketColor,
                           )),
                     ],

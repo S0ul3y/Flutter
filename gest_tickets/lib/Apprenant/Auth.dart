@@ -1,9 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:gest_tickets/Apprenant/Accueil.dart';
+import 'package:gest_tickets/Formateur/AccueilFormateur.dart';
 import 'package:gest_tickets/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
+
+// class Utilisateur {
+//   final String userId;
+//   final String nomUser;
+//   final String prenomUser;
+//   final String emailUser;
+//   final String roleUser;
+
+//   Utilisateur({
+//     required this.userId,
+//     required this.nomUser,
+//     required this.prenomUser,
+//     required this.emailUser,
+//     required this.roleUser,
+//     });
+// }
 
 class Auth extends StatefulWidget {
+  const Auth({super.key});
+
   // const Auth({super.key});
 
   @override
@@ -11,59 +32,75 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
+  // String? UserId;
+  // Utilisateur? UserCourant;
+
   @override
   Widget build(BuildContext context) {
+    
     final EmailContro = TextEditingController();
     final PassContro = TextEditingController();
+
+    void signInUser() async {
+      // String email = EmailContro.text;
+      // String password = PassContro.text;
+
+      try {
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: EmailContro.text,
+          password: PassContro.text,
+        );
+
+        // UserId = userCredential.user!.uid;
+        // Récupération du rôle de l'utilisateur depuis Firestore
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userCredential.user!.uid)
+            .get();
+        // String nomU = userDoc['nom'];
+        // String prenomU = userDoc['prenom'];
+        // String emailU = userDoc['email'];
+        String roleU = userDoc['role'];
+
+        // UserCourant = Utilisateur(userId: UserId.toString(), nomUser: nomU, prenomUser: prenomU, emailUser: emailU, roleUser: roleU);
+
+        // Redirection en fonction du rôle
+        if (roleU == 'Apprenant') {
+          Navigator.pushReplacementNamed(context, '/Accueil');
+        } else if (roleU == 'Formateur') {
+          Navigator.pushReplacementNamed(context, '/dashForm');
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => dashform()),
+          // );
+        } else if (roleU == 'Admin') {
+          Navigator.pushReplacementNamed(context, '/gestionnairePage');
+        }
+      } catch (e) {
+        print("Error: $e");
+      }
+    }
 
     return Scaffold(
       backgroundColor: sombre,
       body: ListView(
         children: [
           Center(
-            child: Container(
+            child: SizedBox(
               width: 400,
               child: Column(
                 children: [
-                  BackBTN(() {
-                    print('object');
-                  }),
+                  // BackBTN(() {
+                  //   print('object');
+                  //   return null;
+                  // }),
 
-                  // Container(
-                  //   width: double.infinity,
-                  //   padding: EdgeInsets.only(top: 10),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Center(
-                  //         // decoration: BoxDecoration(
-                  //         //   color: vert,
-                  //         //   shape: BoxShape.circle
-                  //         // ),
+                  // const Text('.'),
 
-                  //         child: ElevatedButton.icon(
-                  //             iconAlignment: IconAlignment.start,
-                  //             style: ButtonStyle(
-                  //               backgroundColor: WidgetStatePropertyAll(sombre),
-                  //               padding: WidgetStatePropertyAll(
-                  //                   EdgeInsets.symmetric(
-                  //                       horizontal: 10, vertical: 10)),
-                  //             ),
-                  //             onPressed: () => print("salut"),
-                  //             label: Icon(
-                  //               Icons.arrow_back_ios,
-                  //               color: Colors.white,
-                  //               size: 30,
-                  //             )),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-                  Text('.'),
-
-                  Container(
-                      width: 300,
-                      height: 280,
+                  SizedBox(
+                      width: 350,
+                      height: 350,
                       child: Image.asset(
                         'lib/images/Auth.png',
                         fit: BoxFit.contain,
@@ -71,7 +108,7 @@ class _AuthState extends State<Auth> {
 
                   // SizedBox(height: 5),
 
-                  Text(
+                  const Text(
                     'Connexion',
                     style: TextStyle(
                         color: Colors.white,
@@ -82,7 +119,7 @@ class _AuthState extends State<Auth> {
                   MonInput(
                     color: Colors.white,
                     text: 'Email',
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.email,
                       color: vert,
                       size: 30,
@@ -93,7 +130,7 @@ class _AuthState extends State<Auth> {
                   MonInput(
                     color: Colors.white,
                     text: 'password',
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.remove_red_eye,
                       color: vert,
                       size: 30,
@@ -102,11 +139,12 @@ class _AuthState extends State<Auth> {
                     obscruretext: true,
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-                  MonButton('Se connecter', 30, 20, () {
-                    print("object");
+                  MonButton(vert, 'Se connecter', 30, 20, () {
+                    signInUser();
+                    return null;
                   })
                 ],
               ),

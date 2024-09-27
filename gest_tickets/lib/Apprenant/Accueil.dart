@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gest_tickets/Apprenant/Auth.dart';
 import 'package:gest_tickets/constants.dart';
 
 class Accueil extends StatelessWidget {
@@ -17,7 +16,7 @@ class Accueil extends StatelessWidget {
               width: 70,
               height: 70,
             ),
-            Icon(
+            const Icon(
               Icons.notifications,
               color: Colors.white,
               size: 40,
@@ -33,32 +32,38 @@ class Accueil extends StatelessWidget {
                 ),
                 filled: true,
                 fillColor: sombre,
-                hintStyle: TextStyle(color: Colors.white),
-                prefixIcon: Icon(Icons.search, color: Colors.white),
+                hintStyle: const TextStyle(color: Colors.white),
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
               ),
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               onChanged: (value) {},
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           trier(
-            TrierButton('lib/images/pc.png', 'Pratique', trivert, () {}),
-            TrierButton('lib/images/technique.png', 'Théorique', tribleu, () {}),
-            TrierButton('lib/images/theorique.png', 'Technique', tricafe, () {}),
+            TrierButton('lib/images/pc.png', 'Pratique', trivert, () {
+              return null;
+            }),
+            TrierButton('lib/images/technique.png', 'Théorique', tribleu, () {
+              return null;
+            }),
+            TrierButton('lib/images/theorique.png', 'Technique', tricafe, () {
+              return null;
+            }),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Image.asset(
                     'lib/images/font.png',
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   top: 10,
                   left: 10,
                   child: Center(
@@ -77,16 +82,13 @@ class Accueil extends StatelessWidget {
                   bottom: 10,
                   left: 10,
                   child: MonButton(
+                    vert,
                     'Ajouter un tichet', 
                     15, 
                     10,
                     (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return Auth();
-                        },
-                        fullscreenDialog: true,
-                      ));
+                      Navigator.pushReplacementNamed(context, '/creercompte');
+                      return null;
                     },
                     )
                 ),
@@ -99,14 +101,17 @@ class Accueil extends StatelessWidget {
                 MonTicket('Category', 'titre', 'Date', 
                   (){
                     print("object");
+                    return null;
                   }),
                   MonTicket('Category', 'titre', 'Date', 
                   (){
                     print("object");
+                    return null;
                   }),
                   MonTicket('Category', 'titre', 'Date', 
                   (){
                     print("object");
+                    return null;
                   }),
                     // Ajoute autant de containers ou d'éléments que nécessaire
                   ],

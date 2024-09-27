@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gest_tickets/Apprenant/AddTicket.dart';
+import 'package:gest_tickets/Apprenant/Auth.dart';
+import 'package:gest_tickets/Apprenant/CreerCompte.dart';
 import 'package:gest_tickets/Apprenant/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gest_tickets/Apprenant/ticket.dart';
+import 'package:gest_tickets/Formateur/AccueilFormateur.dart';
+import 'package:gest_tickets/firspage.dart';
 import 'firebase_options.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +16,8 @@ void main() async {
 
     // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   );
-  runApp(const MyApp());
+  runApp(
+    const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +28,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeApprenant(),
+      // home: Auth(),
+
+      // title: 'Navigation Demo',
+      initialRoute: '/', // Route initiale (page d'accueil)
+      routes: {
+        // '/': (context) => Auth(), // Page d'accueil
+        '/': (context) => const FirstPagState(), // Page d'accueil
+        '/Accueil': (context) =>  HomeApprenant(),
+        '/dashForm': (context) =>  dashform(),
+        '/addticket': (context) =>  AddTicket(),
+        '/creercompte': (context) => Compte(),
+        '/ListeTicket': (context) => tichet(),
+        '/connexion': (context) => Auth(),
+        // '/connexion': (context) => Auth(),
+      }
     );
   }
 }
